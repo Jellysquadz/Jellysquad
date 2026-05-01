@@ -11,12 +11,12 @@ body {
 #bouncing-image {
   position: absolute;
 
-  width: 90px;      /* fixed, predictable size */
-  max-width: 90px;  /* prevents it scaling up */
+  width: 70px;      /* hard cap for mobile */
+  max-width: 70px;
   height: auto;
 
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
-  border-radius: 12px;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+  border-radius: 10px;
 
   will-change: transform;
 }
