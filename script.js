@@ -8,32 +8,29 @@ window.onload = function () {
   let dx = speed;
   let dy = speed;
 
-  let rotation = 0; // 👈 spin tracker
+  let rotation = 0;
 
-  function moveImage() {
-    const imgWidth = img.clientWidth;
-    const imgHeight = img.clientHeight;
+  function animate() {
+    const w = img.clientWidth;
+    const h = img.clientHeight;
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = document.documentElement.clientHeight;
+    const maxW = window.innerWidth;
+    const maxH = document.documentElement.clientHeight;
 
     x += dx;
     y += dy;
 
-    // Bounce
-    if (x + imgWidth >= windowWidth || x <= 0) dx *= -1;
-    if (y + imgHeight >= windowHeight || y <= 0) dy *= -1;
+    if (x + w >= maxW || x <= 0) dx *= -1;
+    if (y + h >= maxH || y <= 0) dy *= -1;
 
-    // Spin speed (degrees per frame)
-    rotation += 2;
+    rotation += 3; // spin speed
 
-    img.style.transform = `
-      translate(${x}px, ${y}px)
-      rotate(${rotation}deg)
-    `;
+    // IMPORTANT: single transform (both move + rotate)
+    img.style.transform =
+      "translate(" + x + "px, " + y + "px) rotate(" + rotation + "deg)";
 
-    requestAnimationFrame(moveImage);
+    requestAnimationFrame(animate);
   }
 
-  moveImage();
+  animate();
 };
