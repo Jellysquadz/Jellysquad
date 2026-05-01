@@ -4,10 +4,11 @@ window.onload = function () {
   let x = 50;
   let y = 50;
 
-  // Speed scales slightly with screen size
   let speed = Math.max(0.6, window.innerWidth / 600);
   let dx = speed;
   let dy = speed;
+
+  let rotation = 0; // 👈 spin tracker
 
   function moveImage() {
     const imgWidth = img.clientWidth;
@@ -19,11 +20,17 @@ window.onload = function () {
     x += dx;
     y += dy;
 
-    // Bounce off walls
+    // Bounce
     if (x + imgWidth >= windowWidth || x <= 0) dx *= -1;
     if (y + imgHeight >= windowHeight || y <= 0) dy *= -1;
 
-    img.style.transform = `translate(${x}px, ${y}px)`;
+    // Spin speed (degrees per frame)
+    rotation += 2;
+
+    img.style.transform = `
+      translate(${x}px, ${y}px)
+      rotate(${rotation}deg)
+    `;
 
     requestAnimationFrame(moveImage);
   }
