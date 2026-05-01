@@ -4,21 +4,32 @@
   <meta charset="UTF-8">
   <title>Bouncing Image</title>
 
-  <!-- Mobile viewport -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Prevent zooming issues -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       overflow: hidden;
-      background: #111; /* optional, just looks nicer */
+      height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      font-family: sans-serif;
     }
 
     #bouncing-image {
       position: absolute;
-      width: 20vw;
-      max-width: 150px;
+      width: 18vw;
+      max-width: 140px;
       height: auto;
+
+      /* Snazziness */
+      filter: drop-shadow(0 0 15px rgba(255,255,255,0.6));
+      border-radius: 12px;
+
       will-change: transform;
     }
   </style>
@@ -26,17 +37,16 @@
 
 <body>
 
-  <img id="bouncing-image" src="https://via.placeholder.com/150" alt="bouncing">
+  <img id="bouncing-image" src="https://via.placeholder.com/150/ffffff/000000?text=DVD" alt="bouncing">
 
   <script>
     window.onload = function () {
       const img = document.getElementById('bouncing-image');
 
-      let x = 0;
-      let y = 0;
+      let x = 50;
+      let y = 50;
 
-      // Responsive speed based on screen size
-      let speed = Math.max(0.5, window.innerWidth / 500);
+      let speed = Math.max(0.6, window.innerWidth / 600);
       let dx = speed;
       let dy = speed;
 
@@ -62,12 +72,6 @@
 
         requestAnimationFrame(moveImage);
       }
-
-      // Tap to reverse direction (mobile-friendly interaction)
-      window.addEventListener('touchstart', () => {
-        dx *= -1;
-        dy *= -1;
-      });
 
       moveImage();
     };
