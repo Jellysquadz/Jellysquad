@@ -8,12 +8,17 @@ body {
   background-size: cover;
 }
 
-/* The bouncing image */
 #bouncing-image {
   position: absolute;
-  width: 18vw;
-  max-width: 160px;
+
+  width: clamp(60px, 10vw, 110px);
   height: auto;
+
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+  border-radius: 12px;
+
+  will-change: transform;
+}
 
   /* Makes it look nicer */
   filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
