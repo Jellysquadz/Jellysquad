@@ -11,7 +11,7 @@ body {
 #bouncing-image {
   position: absolute;
 
-  width: 70px;
+  width: 200px;
   height: auto;
 
   transform-origin: center;
