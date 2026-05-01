@@ -10,21 +10,39 @@ window.onload = function () {
 
   let rotation = 0;
 
-  function animate() {
-    const imgWidth = img.clientWidth;
-    const imgHeight = img.clientHeight;
+  // 👇 creates visible tap ripple
+  function createRipple(xPos, yPos) {
+    const ripple = document.createElement('div');
+    ripple.style.position = 'fixed';
+    ripple.style.left = xPos + 'px';
+    ripple.style.top = yPos + 'px';
+    ripple.style.width = '20px';
+    ripple.style.height = '20px';
+    ripple.style.border = '3px solid white';
+    ripple.style.borderRadius = '50%';
+    ripple.style.transform = 'translate(-50%, -50%)';
+    ripple.style.animation = 'ripple 0.6s ease-out';
+    ripple.style.pointerEvents = 'none';
+    ripple.style.opacity = '0.8';
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = document.documentElement.clientHeight;
+    document.body.appendChild(ripple);
+
+    setTimeout(() => ripple.remove(), 600);
+  }
+
+  function animate() {
+    const w = img.clientWidth;
+    const h = img.clientHeight;
+
+    const maxW = window.innerWidth;
+    const maxH = document.documentElement.clientHeight;
 
     x += dx;
     y += dy;
 
-    // bounce off edges
-    if (x + imgWidth >= windowWidth || x <= 0) dx *= -1;
-    if (y + imgHeight >= windowHeight || y <= 0) dy *= -1;
+    if (x + w >= maxW || x <= 0) dx *= -1;
+    if (y + h >= maxH || y <= 0) dy *= -1;
 
-    // spin
     rotation += 3;
 
     img.style.transform =
@@ -33,7 +51,6 @@ window.onload = function () {
     requestAnimationFrame(animate);
   }
 
-  // 👇 TAP REACTION: push Sophie away from tap
   function reactToTap(e) {
     let tapX, tapY;
 
@@ -45,17 +62,25 @@ window.onload = function () {
       tapY = e.clientY;
     }
 
-    // distance from tap
-    const force = 8;
+    // 🔥 visual feedback
+    createRipple(tapX, tapY);
+
+    // 🧠 stronger push
+    const force = 12;
 
     const dirX = x + img.clientWidth / 2 - tapX;
     const dirY = y + img.clientHeight / 2 - tapY;
 
-    // normalise direction
     const length = Math.sqrt(dirX * dirX + dirY * dirY) || 1;
 
     dx = (dirX / length) * force;
     dy = (dirY / length) * force;
+
+    // 💥 quick squash effect
+    img.style.transition = "transform 0.1s";
+    setTimeout(() => {
+      img.style.transition = "";
+    }, 100);
   }
 
   window.addEventListener('touchstart', reactToTap);
