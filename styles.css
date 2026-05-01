@@ -11,14 +11,20 @@ body {
 #bouncing-image {
   position: absolute;
 
-  width: 70px;      /* hard cap for mobile */
-  max-width: 70px;
+  width: 110px;
   height: auto;
 
   filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
   border-radius: 10px;
 
   will-change: transform;
+}
+
+/* Mobile override */
+@media (max-width: 600px) {
+  #bouncing-image {
+    width: 60px;
+  }
 }
 
   /* Makes it look nicer */
