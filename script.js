@@ -11,26 +11,55 @@ window.onload = function () {
   let rotation = 0;
 
   function animate() {
-    const w = img.clientWidth;
-    const h = img.clientHeight;
+    const imgWidth = img.clientWidth;
+    const imgHeight = img.clientHeight;
 
-    const maxW = window.innerWidth;
-    const maxH = document.documentElement.clientHeight;
+    const windowWidth = window.innerWidth;
+    const windowHeight = document.documentElement.clientHeight;
 
     x += dx;
     y += dy;
 
-    if (x + w >= maxW || x <= 0) dx *= -1;
-    if (y + h >= maxH || y <= 0) dy *= -1;
+    // bounce off edges
+    if (x + imgWidth >= windowWidth || x <= 0) dx *= -1;
+    if (y + imgHeight >= windowHeight || y <= 0) dy *= -1;
 
-    rotation += 3; // spin speed
+    // spin
+    rotation += 3;
 
-    // IMPORTANT: single transform (both move + rotate)
     img.style.transform =
       "translate(" + x + "px, " + y + "px) rotate(" + rotation + "deg)";
 
     requestAnimationFrame(animate);
   }
+
+  // 👇 TAP REACTION: push Sophie away from tap
+  function reactToTap(e) {
+    let tapX, tapY;
+
+    if (e.touches && e.touches.length > 0) {
+      tapX = e.touches[0].clientX;
+      tapY = e.touches[0].clientY;
+    } else {
+      tapX = e.clientX;
+      tapY = e.clientY;
+    }
+
+    // distance from tap
+    const force = 8;
+
+    const dirX = x + img.clientWidth / 2 - tapX;
+    const dirY = y + img.clientHeight / 2 - tapY;
+
+    // normalise direction
+    const length = Math.sqrt(dirX * dirX + dirY * dirY) || 1;
+
+    dx = (dirX / length) * force;
+    dy = (dirY / length) * force;
+  }
+
+  window.addEventListener('touchstart', reactToTap);
+  window.addEventListener('click', reactToTap);
 
   animate();
 };
