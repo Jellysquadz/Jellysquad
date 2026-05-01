@@ -7,8 +7,8 @@ body {
 
 #bouncing-image {
     position: absolute;
-    width: 300px; /* Adjust the size as needed */
-    height: 300px; /* Adjust the size as needed */
+    width: 100px; /* Adjust the size as needed */
+    height: 100px; /* Adjust the size as needed */
     animation: rotation 6s infinite linear;
 }
 
