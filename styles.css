@@ -1,22 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    overflow: hidden;
-    background: url('office.jpg') no-repeat center center fixed;
-    background-size: 100%;
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  font-family: sans-serif;
 }
 
 #bouncing-image {
-    position: absolute;
-    width: 100px; /* Adjust the size as needed */
-    height: 100px; /* Adjust the size as needed */
-    animation: rotation 6s infinite linear;
-}
+  position: absolute;
+  width: 18vw;
+  max-width: 140px;
+  height: auto;
 
-@keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+  /* Snazziness */
+  filter: drop-shadow(0 0 15px rgba(255,255,255,0.6));
+  border-radius: 12px;
+
+  will-change: transform;
 }
