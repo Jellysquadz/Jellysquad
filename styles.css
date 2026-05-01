@@ -11,7 +11,8 @@ body {
 #bouncing-image {
   position: absolute;
 
-  width: clamp(60px, 10vw, 110px);
+  width: 90px;      /* fixed, predictable size */
+  max-width: 90px;  /* prevents it scaling up */
   height: auto;
 
   filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
